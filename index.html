@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gift Card Xbox Game Pass</title>
+    <meta property="og:site_name" content="Connect Store">
+    <meta name="description" content="Compre seu cartão pré-pago na Connect de forma rápida e segura e aproveite créditos para apps, jogos, icloud e mais. Pagamento fácil e seguro via PIX.">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFFFFF;
+            box-sizing: border-box;
+        }
+
+        .toolbar {
+            background: linear-gradient(90deg, #4E75AF, #4CAF50);
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .toolbar .header {
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+
+        .header .logo img {
+            padding: 5px;
+            width: 40px;
+            margin-right: -2.5px;
+        }
+
+        .header .title,
+        .header .powered-by {
+            text-align: left;
+            margin-top: -12px;
+        }
+
+        .header .title {
+            font-size: 30px;
+            font-weight: bold;
+            color: #FFFFFF;
+            white-space: nowrap;
+        }
+
+        .header .powered-by {
+            font-size: 16px;
+            color: #FFFFFF;
+            white-space: nowrap;
+        }
+
+        .header .profile {
+            flex-grow: 1;
+            text-align: right;
+        }
+
+        .header .profile img {
+            max-height: 200px;
+            object-fit: cover;
+        }
+
+        .toolbar-options {
+            background-color: #FFFFFF;
+            display: flex;
+            padding: 0;
+            margin: 0;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            box-sizing: border-box;
+            margin-top: -3px;
+        }
+
+        .toolbar-options .option {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .toolbar-options .option.active {
+            color: #4CAF50;
+            font-weight: bold;
+            border-bottom: 2px solid #4CAF50;
+        }
+
+        .toolbar-options .option.inactive {
+            color: #757575;
+        }
+
+        .content {
+            padding: 8px;
+        }
+
+        .content .section-title {
+            text-align: center;
+            color: #616161;
+            margin-bottom: 8px;
+        }
+
+        .container {
+            max-width: 500px;
+            background-color: #ffffff;
+            padding: 20px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card.selected {
+            border: 2px solid #4CAF50;
+            transform: scale(1.05);
+        }
+
+        .highlight {
+            background: linear-gradient(90deg, #4E75AF, #4CAF50);
+            color: #FFFFFF;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin-left: 3px;
+        }
+
+        .title {
+            font-size: 30px;
+            color: #333333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #666666;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .value {
+            flex-grow: 1;
+            font-size: 20px;
+            color: #333333;
+            margin-left: 10px;
+        }
+
+        .popup {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding-top: 32px;
+            padding-bottom: 8px;
+            background-color: #ffffff;
+            box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.2);
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            transition: transform 0.3s ease-in-out;
+            transform: translateY(100%);
+            max-height: 50%;
+            overflow-y: auto;
+        }
+
+        .popup.active {
+            display: block;
+            transform: translateY(0);
+        }
+
+        .popup .close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .popup .summary {
+            font-size: 20px;
+            color: #616161;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .popup .total {
+            font-size: 40px;
+            color: #616161;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .popup .fee {
+            font-size: 16px;
+            padding: 8px;
+            color: #616161;
+            border-radius: 4px;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .popup .message {
+            font-size: 16px;
+            color: #616161;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .button {
+            max-width: 350px;
+            margin: 8px 0;
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            padding: 14px;
+            text-align: center;
+            font-size: 18px;
+            color: #FFFFFF;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .cancel-button:hover {
+            background-color: #FF0000;
+        }
+
+        .bottom-button {
+            position: relative;
+            background: linear-gradient(90deg, #4E75AF, #4CAF50);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .cancel-button {
+            background: linear-gradient(90deg, #E4003A, #C8013A);
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .pay-button {
+            background: linear-gradient(90deg, #4E75AF, #4CAF50);
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        .logo {
+            width: 50px;
+            height: auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: -12px;
+        }
+        
+        .adcard {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .adcard img {
+            width: 50px;
+            height: 50px;
+        }
+        .adcard-content {
+            max-width: 80%;
+        }
+        .adcard-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333333;
+            margin-bottom: 5px;
+        }
+        .adcard-text {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 5px;
+        }
+        .adcard-text strong {
+            color: #212121;
+        }
+        .adcard-text.green {
+        	font-size: 16px;
+            color: green;
+        }
+        .adhighlight-card {
+            background-color: #f5f5f5;
+            border-left: 5px solid #4CAF50;
+        }
+       
+       .highlightblackfriday {
+            background: linear-gradient(90deg, #4E75AF, #4E75AF);
+            color: #FFFFFF;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin-left: 3px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="toolbar">
+        <div class="header">
+            <div class="logo">
+                <img src="logo.png" alt="Logo" class="logo">
+                <div>
+                    <div class="title">Game Pass</div>
+                    <div class="powered-by">Powered by Connect</div>
+                </div>
+            </div>
+            <div class="profile">
+                <img src="banner.png" alt="Profile Picture" />
+            </div>
+        </div>
+        <div class="toolbar-options">
+            <div class="option active">Ultimate</div>
+            <div class="option inactive"></div>
+        </div>
+    </div>
+   
+    <div class="container">
+    
+    
+    <div class="adcard adhighlight-card">
+    <div class="adcard-content">
+     <div class="adcard-title">
+      Sobre a assinatura 
+     </div>
+     <div class="adcard-text">
+      Jogue centenas de jogos de alta qualidade no console, PC ou na nuvem. Descubra novas aventuras e aproveite sempre algo novo para jogar!
+     </div>
+     <div class="adcard-text green">
+      <a class="adcard-text green" href="https://www.xbox.com/pt-BR/xbox-game-pass/ultimate">Saiba mais</a>
+     </div>
+    </div>
+   </div>
+
+  
+        <div class="subtitle">Selecione a melhor assinatura para você</div>
+
+    <div class="card" onclick="selectCard('value20')">
+        <input type="radio" name="value" id="value20" value="50">
+        <label for="value20" class="value">Um mês</label>
+        <span class="highlight">Mais escolhido!</span>
+    </div>
+    <div class="card" onclick="selectCard('value40')">
+        <input type="radio" name="value" id="value40" value="150">
+        <label for="value40" class="value">Três meses</label>
+    </div>
+
+<div class="popup" id="paymentPopup">
+    <div class="summary">Valor final do pedido</div>
+    <div class="total" id="orderTotal">R$ 20</div>
+    <div class="fee">Para processamento e emissão do cartão pré-pago incluímos uma taxa de R$ 5.</div>
+    <button href="#" class="button pay-button" id="payButton">REALIZAR PAGAMENTO</button>
+    <button class="button cancel-button" id="cancelButton">CANCELAR PEDIDO</button>
+</div>
+
+<button class="button bottom-button" id="continueButton">CONTINUAR</button>
+
+</div>
+<script>
+        // Oculta o botão "Continuar" ao abrir a página.
+        document.getElementById('continueButton').classList.add('hidden');
+        
+        document.addEventListener("DOMContentLoaded", function() {
+        // Seleciona automaticamente o cartão ao carregar a página
+        selectCard('value20'); 
+    });
+        	
+        function selectCard(cardId) {
+            document.getElementById('paymentPopup').classList.remove('active');
+            document.getElementById('continueButton').classList.remove('hidden'); 
+            var cards = document.querySelectorAll('.card');
+            cards.forEach(function(card) {
+                card.classList.remove('selected');
+            });
+
+            var selectedCard = document.querySelector('input#' + cardId);
+            selectedCard.parentElement.classList.add('selected');
+            selectedCard.checked = true;
+        }
+
+        document.getElementById('continueButton').addEventListener('click', function() {
+            var selectedValue = document.querySelector('input[name="value"]:checked');
+            if (selectedValue) {
+                var value = selectedValue.value;
+                var total = parseInt(value) + 5;
+                document.getElementById('orderTotal').textContent = 'R$ ' + total;
+                document.getElementById('paymentPopup').classList.add('active');
+                document.getElementById('continueButton').classList.add('hidden'); // Oculta o botão "Continuar"
+            } else {
+                alert('Por favor, selecione um valor.');
+            }
+        });
+
+        document.getElementById('cancelButton').addEventListener('click', function() {
+            document.getElementById('paymentPopup').classList.remove('active');
+            document.getElementById('continueButton').classList.remove('hidden'); // Mostra o botão "Continuar"
+        });
+        
+        // Nova forma de pagar
+    document.getElementById('payButton').addEventListener('click', function () {
+    var selectedValue = document.querySelector('input[name="value"]:checked').value;
+    var total = parseInt(selectedValue) + 5;
+
+    // JSON com os mapeamentos
+    var productMapping = {
+        "ultimate": "Xbox Game Pass - Ultimate",
+        "core": "Xbox Game Pass - Core",
+        "pc": "Xbox Game Pass - PC"
+    };
+
+    // Valor padrão do produto
+    var product = "Xbox Game Pass - Ultimate";
+
+    // Verifica se há o atributo 'product' na URL
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('product')) {
+        var productKey = urlParams.get('product');
+
+        // Verifica no JSON se existe o mapeamento para o parâmetro
+        if (productMapping[productKey]) {
+            product = productMapping[productKey];
+        }
+    }
+
+    // Constrói a URL de checkout corretamente
+    var checkoutUrl = "https://connectstore.github.io/checkout?payment=" + total + "&product=" + encodeURIComponent(product) + "&price=" + selectedValue;
+    window.location.href = checkoutUrl;
+});
+    </script>
+</body>
+</html>
