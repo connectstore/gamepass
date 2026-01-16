@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vendas</title>
+  <title>Xbox</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <style>
         /* Reset and Base Styles */
@@ -487,6 +487,17 @@
             margin: 24px 8px 0 8px;
             padding: 16px 0;
             border-top: 1px solid #f3f4f6;
+            line-height: 1.6;
+        }
+        
+        .category-footer a {
+            color: #107c10;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .category-footer a:hover {
+            text-decoration: underline;
         }
         
         /* Bottom Container */
@@ -749,13 +760,13 @@
       <div id="faq-container" class="faq-list"><!-- FAQ items will be loaded from JavaScript -->
       </div><!-- Contact Support -->
       <div class="support-section">
-       <p class="support-text">Não encontrou o que procurava?</p><button class="support-button" onclick="window.open('https://wa.me/+', '_blank', 'noopener,noreferrer')">
+       <p class="support-text">Não encontrou o que procurava?</p><button class="support-button" onclick="window.open('https://wa.me/+5533999449469', '_blank', 'noopener,noreferrer')">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
         </svg> Fale com o Suporte </button>
       </div>
      </div>
      <div class="category-footer">
-      <p>Connect - Celulares e Informatica Ltda CNPJ 43.701.700/0001-16</p>
+      <p>Connect – Celulares e Informática Ltda<br><a href="https://www.econodata.com.br/consulta-empresa/connect-celulares-e-informatica-ltda" target="_blank" rel="noopener noreferrer">CNPJ 43.701.700/0001-16</a></p>
      </div>
     </div>
    </div>
@@ -767,7 +778,7 @@
       <div class="selected-plan-label">
        Plano Selecionado
       </div>
-      <div class="selected-plan"><span id="selected-plan-name" class="selected-plan-name">Um mês</span> <span class="plan-separator">•</span> <span id="selected-plan-price" class="selected-plan-price">R$ 125</span>
+      <div class="selected-plan"><span id="selected-plan-name" class="selected-plan-name">Um mês</span> <span class="plan-separator">•</span> <span id="selected-plan-price" class="selected-plan-price">R$ 39</span>
       </div>
      </div><button id="buy-button" class="cta-button"> <span>Comprar</span>
       <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -801,12 +812,13 @@
         const categoriesData = [
             { title: "Xbox Game Pass Ultimate", category: "ultimate" },
             { title: "Xbox Game Pass Premium", category: "premium" },
-            { title: "Xbox Game Pass Essential", category: "essential" }
+            { title: "Xbox Game Pass Essential", category: "essential" },
+            { title: "Saldo Xbox Store", category: "recargas" }
         ];
 
         // Plans data
         const plansData = [
-            // Xbox Game Pass Ultimate Plans
+            // Xbox Ultimate
             {
                 id: 1,
                 title: "Um mês",
@@ -819,7 +831,7 @@
                     text: "Mais escolhido",
                     color: "default"
                 },
-                isPopular: true
+                isPopular: false
             },
             {
                 id: 2,
@@ -832,7 +844,7 @@
                 tag: null,
                 isPopular: false
             },
-            // Xbox Game Pass Core Plans
+            // Xbox Premium
             {
                 id: 4,
                 title: "Um mês",
@@ -858,7 +870,7 @@
                 tag: null,
                 isPopular: false
             },
-            // Xbox Live Gold Plans
+            // Xbox Essential 
             {
                 id: 7,
                 title: "Um mês",
@@ -894,6 +906,57 @@
                 totalPrice: 264,
                 tag: {
                     text: "Melhor valor",
+                    color: "green"
+                },
+                isPopular: false
+            },
+            // Recargas
+            {
+                id: 10,
+                title: "R$ 25",
+                subtitle: "Saldo Xbox",
+                category: "recargas",
+                basePrice: 25,
+                fee: 5,
+                totalPrice: 30,
+                tag: null,
+                isPopular: false
+            },
+            {
+                id: 11,
+                title: "R$ 50",
+                subtitle: "Saldo Xbox",
+                category: "recargas",
+                basePrice: 50,
+                fee: 5,
+                totalPrice: 55,
+                tag: {
+                    text: "Mais escolhido",
+                    color: "default"
+                },
+                isPopular: false
+            },
+            {
+                id: 11,
+                title: "R$ 70",
+                subtitle: "Saldo Xbox",
+                category: "recargas",
+                basePrice: 70,
+                fee: 5,
+                totalPrice: 75,
+                tag: null,
+                isPopular: false
+            },
+            {
+                id: 12,
+                title: "R$ 100",
+                subtitle: "Saldo Xbox",
+                category: "recargas",
+                basePrice: 100,
+                fee: 0,
+                totalPrice: 100,
+                tag: {
+                    text: "Taxa ZERO!",
                     color: "green"
                 },
                 isPopular: false
@@ -976,6 +1039,9 @@
                 "Multijogador no console online",
                 "Jogue e ganhe até 25.000 pontos do Rewards por ano na Loja com o Rewards",
                 " Benefícios para jogos como League of Legends e Call of Duty: Warzone"
+            ],
+            recargas: [
+                "Você adiciona crédito à sua conta Microsoft e pode comprar jogos, DLCs, passes de temporada, filmes, séries, aplicativos e até assinaturas como Xbox Game Pass "  
             ]
         };
 
@@ -996,7 +1062,7 @@
             
             return `
                 <div class="benefits-section">
-                    <h3 class="benefits-title">✨ O que está incluído:</h3>
+                    <h3 class="benefits-title">🎮 O que está incluso:</h3>
                     <div class="benefits-list">
                         ${benefitsHTML}
                     </div>
@@ -1031,7 +1097,8 @@
                         </div>
                         ${createBenefitsSection(category.category)}
                         <div class="category-footer">
-                            <p>Connect - Celulares e Informatica Ltda CNPJ 43.701.700/0001-16</p>
+                            <p>Connect – Celulares e Informática Ltda<br>
+                            <a href="https://www.econodata.com.br/consulta-empresa/43701700000116-connect-celulares-e-informatica-ltda" target="_blank" rel="noopener noreferrer">CNPJ 43.701.700/0001-16</a></p>
                         </div>
                     </div>
                 `;
@@ -1040,7 +1107,8 @@
                 const shortNames = {
                     "Xbox Game Pass Ultimate": "Ultimate",
                     "Xbox Game Pass Premium": "Premium",
-                    "Xbox Game Pass Essential": "Essential"
+                    "Xbox Game Pass Essential": "Essential",
+                    "Saldo Xbox Store" : "Recargas"
                 };
                 const activeTabClass = categoryIndex === 0 ? ' active' : '';
                 tabsHtml += `<div class="header-category-tab${activeTabClass}" onclick="switchCategory('${category.category}')">${shortNames[category.title]}</div>`;
@@ -1144,8 +1212,24 @@
                 
                 const totalPrice = selectedPlan.getAttribute('data-price');
                 const basePrice = selectedPlan.getAttribute('data-base-price');
+                const planId = selectedPlan.getAttribute('data-id');
                 
-                const checkoutUrl = `https://connectstore.github.io/checkout?payment=${totalPrice}&product=Xbox%20Game%20Pass&price=${basePrice}`;
+                // Find the plan data to get category
+                const plan = plansData.find(p => p.id == planId);
+                if (!plan) return;
+                
+                // Get category full name
+                const categoryNames = {
+                    'ultimate': 'Xbox Game Pass Ultimate',
+                    'premium': 'Xbox Game Pass Premium',
+                    'essential': 'Xbox Game Pass Essential',
+                    'recargas': 'Xbox Store'
+                };
+                
+                const categoryName = categoryNames[plan.category] || 'Xbox';
+                const productName = `${categoryName} - ${plan.title}`;
+                
+                const checkoutUrl = `https://connectstore.github.io/checkout?payment=${totalPrice}&product=${encodeURIComponent(productName)}&price=${basePrice}`;
                 
                 window.location.href = checkoutUrl;
             });
@@ -1191,12 +1275,16 @@
             activeButton.classList.add('active');
             
             const paymentBar = document.getElementById('payment-bar');
+            const categoryTabs = document.getElementById('header-category-tabs');
+            
             if (tabName === 'plano') {
                 paymentBar.style.display = 'block';
+                categoryTabs.style.display = 'flex';
             } else {
                 paymentBar.style.display = 'none';
+                categoryTabs.style.display = 'none';
             }
         }
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9bdd79904109cd97',t:'MTc2ODM5NzI4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9bee94c4b66d4eb1',t:'MTc2ODU3NjY2MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
