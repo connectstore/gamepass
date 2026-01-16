@@ -1,741 +1,910 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xbox - Game Pass Ultimate</title>
-    <meta name="description" content="Jogue centenas de jogos de alta qualidade no console, PC ou na nuvem. Descubra novas aventuras e aproveite sempre algo novo para jogar!">
-    <!-- Dentro do <head> -->
-    <meta name="theme-color" content="#107C10">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-   <style>
-    :root {
-    --color-primary: #107C10; /* Verde principal Xbox */
-    --color-primary-light: #1DB954; /* Verde mais claro para gradientes/bordas */
-    --color-primary-bg: rgba(16, 124, 16, 0.05); /* Fundo suave com verde */
-    --color-text: #333; /* Texto principal */
-    --color-subtext: #666; /* Subtexto */
-    --color-light: #777; /* Ícones, textos secundários */
-    --color-border: #f3f4f6; /* Bordas leves */
-    --color-bg: #ffffff; /* Fundo branco */
-    --color-badge-green: #1DB954; /* Verde Xbox */
-    --color-badge-blue: #3b82f6; /* Azul padrão */
-    --color-badge-orange: #f59e0b; /* Laranja */
-    --color-benefit-icon-bg: rgba(16, 124, 16, 0.1); /* Ícone com fundo suave verde */
-    --color-support-btn-bg: #f3f4f6;
-    --color-support-btn-hover: #e5e7eb;
-    --color-separator: #ccc;
-    --color-footer: #777; 
-    --color-backdrop: rgba(0, 0, 0, 0.5);
-    --color-sheet-shadow: rgba(0, 0, 0, 0.1);
-    --color-cta-shadow: rgba(16, 124, 16, 0.3); /* Sombra em verde */
-    --color-terms: #107C10; /* Destaque em links ou termos */
-}
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Poppins', sans-serif;
-        background-color: var(--color-bg);
-        min-height: 100vh;
-        padding-bottom: 140px;
-        color: var(--color-text);
-    }
-
-    .container {
-        max-width: 540px;
-        margin: 0 auto;
-        padding: 0 16px;
-    }
-
-    .header-gradient {
-        background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
-        color: white;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        position: sticky;
-        top: 0;
-        z-index: 10;
-    }
-
-    .header-content {
-        display: flex;
-        align-items: center;
-        padding: 16px;
-    }
-
-    .header-logo {
-        display: flex;
-        align-items: center;
-    }
-
-    .header-logo svg {
-        width: 32px;
-        height: 32px;
-        margin-right: 8px;
-    }
-
-    .header-title {
-        font-size: 20px;
-        font-weight: 700;
-    }
-
-    .main-content {
-        padding: 24px 0;
-    }
-
-    .section-title {
-        font-size: 20px;
-        font-weight: 600;
-        color: var(--color-text);
-        margin-bottom: 5px;
-    }
-
-    .section-subtitle {
-        font-size: 14px;
-        color: var(--color-subtext);
-        margin-bottom: 30px;
-    }
-
-    .plan-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-        margin-bottom: 24px;
-    }
-
-    .plan-card {
-        background-color: white;
-        border-radius: 12px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        padding: 16px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border: 2px solid transparent;
-        position: relative;
-    }
-
-    .plan-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    }
-
-    .plan-card.selected {
-        border-color: var(--color-primary);
-        background-color: var(--color-primary-bg);
-    }
-
-    .plan-card-content {
-        text-align: center;
-    }
-
-    .plan-title {
-        font-weight: 600;
-        color: #444;
-        margin-bottom: 4px;
-    }
-
-    .plan-price {
-        font-size: 20px;
-        font-weight: 700;
-        color: var(--color-primary);
-    }
-
-    .plan-monthly {
-        font-size: 12px;
-        color: var(--color-light);
-        margin-top: 4px;
-    }
-
-    .badge {
-        position: absolute;
-        top: -10px;
-        right: -10px;
-        background-color: var(--color-primary);
-        color: white;
-        font-size: 12px;
-        padding: 2px 8px;
-        border-radius: 999px;
-        transform: rotate(15deg);
-    }
-
-    .badge.green {
-        background-color: var(--color-badge-green);
-    }
-
-    .badge.blue {
-        background-color: var(--color-badge-blue);
-    }
-
-    .badge.orange {
-        background-color: var(--color-badge-orange);
-    }
-
-    .benefits-section {
-        border: 1px solid var(--color-border);
-        background-color: #fafafa;
-        border-radius: 12px;
-        padding: 16px;
-        margin-bottom: 24px;
-    }
-
-    .benefits-title {
-        color: #444;
-        font-weight: 500;
-        margin-bottom: 12px;
-        text-align: center;
-    }
-
-    .benefit-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 12px;
-    }
-
-    .benefit-item:last-child {
-        margin-bottom: 0;
-    }
-
-    .benefit-icon {
-        width: 24px;
-        height: 24px;
-        background-color: var(--color-benefit-icon-bg);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 12px;
-    }
-
-    .benefit-icon svg {
-        width: 12px;
-        height: 12px;
-        color: var(--color-primary);
-    }
-
-    .benefit-text {
-        font-size: 14px;
-        color: var(--color-subtext);
-    }
-
-    .tab-content {
-        display: none;
-    }
-
-    .tab-content.active {
-        display: block;
-    }
-
-    .faq-container {
-        background-color: white;
-        border-radius: 16px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        padding: 24px;
-        margin-bottom: 24px;
-    }
-
-    .faq-title {
-        font-size: 20px;
-        font-weight: 600;
-        color: var(--color-text);
-        margin-bottom: 24px;
-    }
-
-    .faq-list {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-    }
-
-    .faq-item {
-        border-bottom: 1px solid #eee;
-        padding-bottom: 8px;
-        transition: all 0.3s ease;
-    }
-
-    .faq-question {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        cursor: pointer;
-    }
-
-    .faq-question h3 {
-        font-weight: 500;
-        color: var(--color-text);
-    }
-
-    .faq-question svg {
-        width: 20px;
-        height: 20px;
-        color: var(--color-light);
-        transition: transform 0.3s ease;
-    }
-
-    .faq-answer {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-    }
-
-    .faq-answer p {
-        font-size: 14px;
-        color: var(--color-subtext);
-        padding-top: 8px;
-    }
-
-    .faq-item.active .faq-answer {
-        max-height: 500px;
-    }
-
-    .faq-item.active .faq-question svg {
-        transform: rotate(180deg);
-    }
-
-    .support-section {
-        text-align: center;
-        margin-top: 32px;
-    }
-
-    .support-text {
-        font-size: 14px;
-        color: var(--color-subtext);
-        margin-bottom: 16px;
-    }
-
-    .support-button {
-        background-color: var(--color-support-btn-bg);
-        color: var(--color-text);
-        font-weight: 500;
-        padding: 8px 24px;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        display: flex;
-        align-items: center;
-        margin: 0 auto;
-    }
-
-    .support-button:hover {
-        background-color: var(--color-support-btn-hover);
-    }
-
-    .support-button svg {
-        width: 20px;
-        height: 20px;
-        margin-right: 8px;
-    }
-
-    .footer {
-        text-align: center;
-        font-size: 12px;
-        color: var(--color-footer);
-        margin-bottom: 80px;
-    }
-
-    .bottom-container {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        background-color: rgba(255, 255, 255, 0.9);
-        border-top: 1px solid rgba(0, 0, 0, 0.05);
-        z-index: 10;
-    }
-
-    .payment-bar {
-        padding: 16px;
-        border-bottom: 1px solid var(--color-border);
-    }
-
-    .payment-content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .selected-plan {
-        display: flex;
-        align-items: center;
-    }
-
-    .selected-plan-name {
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--color-text);
-    }
-
-    .plan-separator {
-        margin: 0 8px;
-        color: var(--color-separator);
-    }
-
-    .selected-plan-price {
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--color-primary);
-    }
-
-    .cta-button {
-        background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
-        color: white;
-        font-weight: 700;
-        font-size: 16px;
-        padding: 12px 24px;
-        border-radius: 12px;
-        border: none;
-        box-shadow: 0 4px 6px var(--color-cta-shadow);
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-    }
-
-    .cta-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 15px -3px var(--color-cta-shadow);
-    }
-
-    .cta-button svg {
-        width: 16px;
-        height: 16px;
-        margin-left: 8px;
-    }
-
-    .bottom-nav {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        padding: 12px 16px;
-    }
-
-    .tab-button {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        cursor: pointer;
-    }
-
-    .tab-button svg {
-        width: 24px;
-        height: 24px;
-        color: var(--color-light);
-    }
-
-    .tab-button span {
-        font-size: 12px;
-        font-weight: 500;
-        color: var(--color-light);
-        margin-top: 4px;
-    }
-
-    .tab-button.active svg,
-    .tab-button.active span {
-        color: var(--color-primary);
-    }
-
-    .backdrop {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: var(--color-backdrop);
-        z-index: 40;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
-    }
-
-    .backdrop.active {
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    .bottom-sheet {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: white;
-        border-top-left-radius: 16px;
-        border-top-right-radius: 16px;
-        box-shadow: 0 -4px 20px var(--color-sheet-shadow);
-        z-index: 50;
-        transform: translateY(100%);
-        transition: transform 0.3s ease;
-    }
-
-    .bottom-sheet.active {
-        transform: translateY(0);
-    }
-
-    .sheet-content {
-        padding: 24px;
-    }
-
-    .sheet-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 16px;
-    }
-
-    .sheet-title {
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--color-text);
-    }
-
-    .close-button {
-        padding: 4px;
-        border-radius: 50%;
-        border: none;
-        background: transparent;
-        cursor: pointer;
-    }
-
-    .close-button:hover {
-        background-color: var(--color-border);
-    }
-
-    .close-button svg {
-        width: 24px;
-        height: 24px;
-        color: var(--color-light);
-    }
-
-    .sheet-text {
-        color: var(--color-subtext);
-        margin-bottom: 24px;
-    }
-
-    .confirm-button {
-        width: 100%;
-        background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
-        color: white;
-        font-weight: 700;
-        font-size: 16px;
-        padding: 12px;
-        border-radius: 12px;
-        border: none;
-        box-shadow: 0 4px 6px var(--color-cta-shadow);
-        cursor: pointer;
-    }
-
-    .termsclick {
-        font-size: 15px;
-        color: var(--color-terms);
-        border-radius: 4px;
-        text-align: center;
-        margin-bottom: 8px;
-    }
-
-    .logo {
-        width: 40px;
-        height: auto;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 0px;
-    }
-</style>
-<!-- Header -->
-    <header class="header-gradient">
-        <div class="container">
-            <div class="header-content">
-                <div class="header-logo">
-                    <img src="logo.png" alt="Logo" class="logo">
-                    <h1 class="header-title">Game Pass</h1>
-                    <img src="logo_ultimate.png" alt="Logo" class="logo">
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="main-content">
-            <!-- Plan Tab Content -->
-            <div class="tab-content active" id="plano-tab">
-                <h2 class="section-title">Planos disponíveis</h2>
-                <p class="section-subtitle">Escolha seu plano e aproveite todos os benefícios</p>
-                
-                <div id="plan-grid" class="plan-grid">
-                    <!-- Plans will be loaded dynamically from JSON -->
-                </div>
-
-            <!-- Benefits -->
-            <div class="benefits-section">
-                <h3 class="benefits-title">O que está incluído:</h3>
-                <div class="benefits-list">
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                        </div>
-                        <p class="benefit-text">Inscrição EA Play</p>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                        </div>
-                        <p class="benefit-text">Jogos na Nuvem</p>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                        </div>
-                        <p class="benefit-text">Centenas de jogos no console e PC</p>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                        </div>
-                        <p class="benefit-text">Multijogador no console online</p>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                        </div>
-                        <p class="benefit-text">Novos jogos no primeiro dia</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- FAQ Tab Content -->
-        <div class="tab-content" id="faq-tab">
-            <div class="faq-container">
-                <h2 class="faq-title">Perguntas Frequentes</h2>
-                
-                <!-- FAQ items will be dynamically inserted here -->
-                <div id="faq-container" class="faq-list">
-                    <!-- FAQ items will be loaded from JavaScript -->
-                </div>
-                
-                <!-- Contact Support -->
-                <div class="support-section">
-                    <p class="support-text">Não encontrou o que procurava?</p>
-                    <button class="support-button" onclick="window.location.href='https://wa.me/+5533999449469';">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                        </svg>
-                        Fale com o Suporte
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <p>Connect - Celulares e Informatica Ltda<p>
-           <p>CNPJ 43.701.700/0001-16</p>
-        </div>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            min-height: 100%;
+            padding-bottom: 140px;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        html {
+            height: 100%;
+        }
+        
+        .container {
+            max-width: 540px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        /* Header Styles */
+        .header-gradient {
+            background: #f5f5f5;
+            color: #1a1a1a;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .header-content {
+            padding: 16px 20px 0 20px;
+        }
+        
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+            margin-bottom: 16px;
+        }
+        
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .header-logo svg {
+            width: 28px;
+            height: 28px;
+            color: #107c10;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+        }
+        
+        .header-title {
+            font-size: 19px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: #1a1a1a;
+        }
+        
+        /* Category Tabs in Header */
+        .header-category-tabs {
+            display: flex;
+            justify-content: flex-start;
+            gap: 8px;
+            padding-bottom: 12px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .header-category-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .header-category-tab {
+            padding: 8px 18px;
+            border-radius: 20px;
+            background-color: #ffffff;
+            color: #666;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1.5px solid #e5e7eb;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
+        .header-category-tab:hover {
+            background-color: #f9fafb;
+            border-color: #107c10;
+        }
+        
+        .header-category-tab.active {
+            padding: 8px 18px;
+            border-radius: 20px;
+            background-color: #107c10;
+            color: white;
+            border: 1.5px solid #107c10;
+            font-weight: 600;
+        }
+        
+        /* Trust Badges */
+        .trust-badges {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+        
+        .trust-badge svg {
+            width: 14px;
+            height: 14px;
+        }
+        
+        /* Category Section */
+        .categories-wrapper {
+            position: relative;
+        }
+        
+        .category-section {
+            display: none;
+        }
+        
+        .category-section.active {
+            display: block;
+        }
+        
+        .category-header {
+            margin-bottom: 24px;
+            padding: 0 8px;
+        }
+        
+
+        
+        /* Main Content Styles */
+        .main-content {
+            padding: 24px 0;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+        
+        .section-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 0;
+            text-align: center;
+            line-height: 1.5;
+        }
+        
+        /* Plan Cards */
+        .plan-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 28px;
+            padding: 0 8px;
+        }
+        
+        .plan-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+            position: relative;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .plan-card:hover {
+            border-color: #107c10;
+            box-shadow: 0 4px 12px rgba(16, 124, 16, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .plan-card.selected {
+            border-color: #107c10;
+            background-color: #f0f7f0;
+            box-shadow: 0 4px 16px rgba(16, 124, 16, 0.15);
+        }
+        
+        .plan-card.popular {
+            border-color: #107c10;
+        }
+        
+        .plan-card-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+        }
+        
+        .plan-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #8a8a8a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+        
+        .plan-card.selected .plan-radio {
+            border-color: #107c10;
+            border-width: 6px;
+        }
+        
+        .plan-info {
+            flex: 1;
+        }
+        
+        .plan-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+        
+        .plan-monthly {
+            font-size: 13px;
+            color: #616161;
+        }
+        
+        .plan-price-section {
+            text-align: right;
+        }
+        
+        .plan-price {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0;
+        }
+        
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: 16px;
+            background-color: #107c10;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge.green {
+            background-color: #10b981;
+        }
+        
+        .badge.blue {
+            background-color: #0078d4;
+        }
+        
+        .badge.orange {
+            background-color: #f59e0b;
+        }
+        
+        /* Benefits Section */
+        .benefits-section {
+            border: 2px solid #f3f4f6;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 0 8px 24px 8px;
+            background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+        }
+        
+        .benefits-title {
+            color: #333;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .benefit-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .benefit-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(90deg, #107c10 0%, #0e7a0e 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .benefit-icon svg {
+            width: 14px;
+            height: 14px;
+            color: white;
+            stroke-width: 3;
+        }
+        
+        .benefit-text {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* FAQ Styles */
+        .faq-container {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            padding: 28px 24px;
+            margin-bottom: 24px;
+        }
+        
+        .faq-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+        
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 4px 0;
+        }
+        
+        .faq-question h3 {
+            font-weight: 600;
+            color: #1a1a1a;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .faq-question svg {
+            width: 20px;
+            height: 20px;
+            color: #777;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-answer p {
+            font-size: 14px;
+            color: #666;
+            padding-top: 12px;
+            line-height: 1.6;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-question svg {
+            transform: rotate(180deg);
+            color: #107c10;
+        }
+        
+        /* Support Section */
+        .support-section {
+            text-align: center;
+            margin-top: 32px;
+        }
+        
+        .support-text {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        
+        .support-button {
+            background-color: #f3f4f6;
+            color: #333;
+            font-weight: 500;
+            padding: 8px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            margin: 0 auto;
+        }
+        
+        .support-button:hover {
+            background-color: #e5e7eb;
+        }
+        
+        .support-button svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            margin: 40px 0 80px 0;
+            padding: 0 16px;
+        }
+        
+        .category-footer {
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            margin: 24px 8px 0 8px;
+            padding: 16px 0;
+            border-top: 1px solid #f3f4f6;
+        }
+        
+        /* Bottom Container */
+        .bottom-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.98);
+            border-top: 1px solid #e5e7eb;
+            z-index: 10;
+            box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.06);
+        }
+        
+        /* Payment Bar */
+        .payment-bar {
+            padding: 12px 20px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        .payment-content {
+            max-width: 540px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        
+        .selected-plan-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .selected-plan-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        
+        .selected-plan {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+        
+        .selected-plan-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        
+        .plan-separator {
+            color: #d1d5db;
+            font-size: 14px;
+        }
+        
+        .selected-plan-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #107c10;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #107c10 0%, #0d6b0d 100%);
+            color: white;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 14px 28px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 2px 8px rgba(16, 124, 16, 0.25);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(16, 124, 16, 0.3);
+            background: linear-gradient(135deg, #0e7a0e 0%, #0a5a0a 100%);
+        }
+        
+        .cta-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(16, 124, 16, 0.25);
+        }
+        
+        .cta-button svg {
+            width: 18px;
+            height: 18px;
+            margin-left: 6px;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 12px 16px;
+        }
+        
+        .tab-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .tab-button svg {
+            width: 24px;
+            height: 24px;
+            color: #777;
+        }
+        
+        .tab-button span {
+            font-size: 12px;
+            font-weight: 500;
+            color: #777;
+            margin-top: 4px;
+        }
+        
+        .tab-button.active svg {
+            color: #107c10;
+        }
+        
+        .tab-button.active span {
+            color: #107c10;
+        }
+        
+        /* Bottom Sheet */
+        .backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .bottom-sheet {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .bottom-sheet.active {
+            transform: translateY(0);
+        }
+        
+        .sheet-content {
+            padding: 24px;
+        }
+        
+        .sheet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .sheet-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .close-button {
+            padding: 4px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+        
+        .close-button:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .close-button svg {
+            width: 24px;
+            height: 24px;
+            color: #777;
+        }
+        
+        .sheet-text {
+            color: #666;
+            margin-bottom: 24px;
+        }
+        
+        .confirm-button {
+            width: 100%;
+            background: linear-gradient(90deg, #107c10 0%, #0e7a0e 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 12px;
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 4px 6px rgba(16, 124, 16, 0.3);
+            cursor: pointer;
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body><!-- Header -->
+  <header class="header-gradient">
+   <div class="container">
+    <div class="header-content">
+     <div class="header-top">
+      <div class="header-logo">
+       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+       </svg>
+       <h1 class="header-title">Connect Store</h1>
+      </div>
+     </div><!-- Category tabs integrated in header -->
+     <div class="header-category-tabs" id="header-category-tabs"><!-- Tabs will be dynamically inserted -->
+     </div>
     </div>
-</div>
-
-<!-- Combined Bottom Container (Payment + Navigation) -->
-<div id="bottom-container" class="bottom-container">
-    <!-- Payment Bar -->
-    <div id="payment-bar" class="payment-bar">
-        <div class="payment-content">
-            <div class="selected-plan">
-                <span id="selected-plan-name" class="selected-plan-name">1 mês</span>
-                <span class="plan-separator">•</span>
-                <span id="selected-plan-price" class="selected-plan-price">R$ 39</span>
-            </div>
-            <button id="buy-button" class="cta-button">
-                <span>Comprar</span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-            </button>
-        </div>
+   </div>
+  </header>
+  <div class="container">
+   <div class="main-content"><!-- Plan Tab Content -->
+    <div class="tab-content active" id="plano-tab"><!-- Categories wrapper -->
+     <div class="categories-wrapper" id="categories-wrapper">
+      <div id="categories-container"><!-- Categories will be dynamically inserted -->
+      </div>
+     </div>
+    </div><!-- FAQ Tab Content -->
+    <div class="tab-content" id="faq-tab">
+     <div class="faq-container">
+      <h2 class="faq-title">Perguntas Frequentes</h2><!-- FAQ items will be dynamically inserted here -->
+      <div id="faq-container" class="faq-list"><!-- FAQ items will be loaded from JavaScript -->
+      </div><!-- Contact Support -->
+      <div class="support-section">
+       <p class="support-text">Não encontrou o que procurava?</p><button class="support-button" onclick="window.open('https://wa.me/+', '_blank', 'noopener,noreferrer')">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+        </svg> Fale com o Suporte </button>
+      </div>
+     </div>
+     <div class="category-footer">
+      <p>Connect - Celulares e Informatica Ltda CNPJ 43.701.700/0001-16</p>
+     </div>
     </div>
-    
-    <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-        <div class="tab-button active" onclick="switchTab('plano')">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-            </svg>
-            <span>Planos</span>
-        </div>
-        <div class="tab-button" onclick="switchTab('faq')">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Ajuda</span>
-        </div>
+   </div>
+  </div><!-- Combined Bottom Container (Payment + Navigation) -->
+  <div id="bottom-container" class="bottom-container"><!-- Payment Bar -->
+   <div id="payment-bar" class="payment-bar">
+    <div class="payment-content">
+     <div class="selected-plan-info">
+      <div class="selected-plan-label">
+       Plano Selecionado
+      </div>
+      <div class="selected-plan"><span id="selected-plan-name" class="selected-plan-name">Um mês</span> <span class="plan-separator">•</span> <span id="selected-plan-price" class="selected-plan-price">R$ 125</span>
+      </div>
+     </div><button id="buy-button" class="cta-button"> <span>Comprar</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+      </svg></button>
     </div>
-</div>
-
-<!-- Bottom Sheet for Terms -->
-<div id="backdrop" class="backdrop"></div>
-<div id="terms-sheet" class="bottom-sheet">
-    <div class="sheet-content">
-        <div class="sheet-header">
-            <h3 class="sheet-title">Termos e Condições</h3>
-            <button id="close-sheet" class="close-button">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-        <p class="sheet-text">
-            Ao continuar, você aceita os <a class="termsclick" href="https://connectstore.github.io/terms">Termos e Condições</a> do produto e autoriza o envio de comunicações promocionais e informativas.
-        </p>
-        <button id="confirm-button" class="confirm-button">
-            Concordar e Continuar
-        </button>
+   </div><!-- Bottom Navigation -->
+   <div class="bottom-nav">
+    <div class="tab-button active" onclick="switchTab('plano')">
+     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+     </svg><span>Planos</span>
     </div>
-</div>
+    <div class="tab-button" onclick="switchTab('faq')">
+     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+     </svg><span>Ajuda</span>
+    </div>
+   </div>
+  </div><!-- Bottom Sheet for Terms -->
+  <div id="backdrop" class="backdrop"></div>
+  <div id="terms-sheet" class="bottom-sheet">
+   <div class="sheet-content">
+    <div class="sheet-header">
+     <h3 class="sheet-title">Termos e Condições</h3><button id="close-sheet" class="close-button">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg></button>
+    </div>
+    <p class="sheet-text">Ao continuar, você aceita os <a href="https://connectstore.github.io/terms" target="_blank" rel="noopener noreferrer" style="color: #107c10; font-weight: 600; text-decoration: underline;">Termos e Condições</a> do produto. Após concluir a compra, o Gift Card não poderá ser cancelado ou reembolsado.</p><button id="confirm-button" class="confirm-button"> Concordar e Continuar </button>
+   </div>
+  </div>
+  <script>
+        // Categories data
+        const categoriesData = [
+            { title: "Xbox Game Pass Ultimate", category: "ultimate" },
+            { title: "Xbox Game Pass Premium", category: "premium" },
+            { title: "Xbox Game Pass Essential", category: "essential" }
+        ];
 
-<script>
-    // Plans data stored as JSON
-    const plansData = [
-        {
-            id: 1,
-            months: 1,
-            basePrice: 120,
-            fee: 5,
-            totalPrice: 125,
-            monthlyPrice: 125,
-            tag: null
-        },
-        {
-            id: 2,
-            months: 3,
-            basePrice: 360,
-            fee: 5,
-            totalPrice: 365,
-            monthlyPrice: 121,
-            tag: null
+        // Plans data
+        const plansData = [
+            // Xbox Game Pass Ultimate Plans
+            {
+                id: 1,
+                title: "Um mês",
+                subtitle: "R$ 125,00/mês",
+                category: "ultimate",
+                basePrice: 120,
+                fee: 5,
+                totalPrice: 125,
+                tag: {
+                    text: "Mais escolhido",
+                    color: "default"
+                },
+                isPopular: true
+            },
+            {
+                id: 2,
+                title: "Três meses",
+                subtitle: "R$ 120/mês",
+                category: "ultimate",
+                basePrice: 360,
+                fee: 5,
+                totalPrice: 365,
+                tag: null,
+                isPopular: false
+            },
+            // Xbox Game Pass Core Plans
+            {
+                id: 4,
+                title: "Um mês",
+                subtitle: "R$ 65/mês",
+                category: "premium",
+                basePrice: 60,
+                fee: 5,
+                totalPrice: 65,
+                tag: {
+                    text: "Mais escolhido",
+                    color: "default"
+                },
+                isPopular: true
+            },
+            {
+                id: 5,
+                title: "Três meses",
+                subtitle: "R$ 61/mês",
+                category: "premium",
+                basePrice: 179,
+                fee: 5,
+                totalPrice: 184,
+                tag: null,
+                isPopular: false
+            },
+            // Xbox Live Gold Plans
+            {
+                id: 7,
+                title: "Um mês",
+                subtitle: "R$ 49/mês",
+                category: "essential",
+                basePrice: 44,
+                fee: 5,
+                totalPrice: 49,
+                tag: {
+                    text: "Mais escolhido",
+                    color: "default"
+                },
+                isPopular: true
+            },
+            {
+                id: 8,
+                title: "Três meses",
+                subtitle: "R$ 44/mês",
+                category: "essential",
+                basePrice: 132,
+                fee: 0,
+                totalPrice: 132,
+                tag: null,
+                isPopular: false
+            },
+            {
+                id: 9,
+                title: "Seis meses",
+                subtitle: "R$ 44/mês",
+                category: "essential",
+                basePrice: 264,
+                fee: 0,
+                totalPrice: 264,
+                tag: {
+                    text: "Melhor valor",
+                    color: "green"
+                },
+                isPopular: false
             }
-    ];
+        ];
 
-    // FAQ data stored as JSON
-    const faqData = [
+        // FAQ data stored as JSON
+        const faqData = [
     {
-        question: "O que é o Xbox Game Pass Ultimate?",
-        answer: "O Xbox Game Pass Ultimate é um serviço de assinatura da Microsoft que oferece acesso a uma vasta biblioteca de jogos para Xbox e PC, incluindo títulos de lançamento no mesmo dia. A assinatura também inclui Xbox Live Gold e benefícios do EA Play."
+        question: "O que é o Xbox Game Pass?",
+        answer: "O Xbox Game Pass é um serviço de assinatura da Microsoft que oferece acesso a uma vasta biblioteca de jogos para Xbox e PC, incluindo títulos de lançamento no mesmo dia. A assinatura também inclui Xbox Live Gold e benefícios do EA Play."
     },
     {
         question: "Como funciona o pagamento?",
@@ -751,7 +920,7 @@
     },
     {
         question: "Qual a diferença entre Game Pass Ultimate e outras versões?",
-        answer: "O Game Pass Ultimate inclui todos os benefícios do Game Pass para console, PC e Xbox Live Gold. É a versão mais completa do serviço, ideal para quem joga em múltiplas plataformas e quer acesso completo a títulos, online e extras como o EA Play."
+        answer: "O Game Pass Ultimate inclui todos os benefícios do Game Pass Essential e Premium. É a versão mais completa do serviço, ideal para quem joga em múltiplas plataformas e quer acesso completo a títulos, online e extras como o EA Play."
     },
     {
         question: "Posso usar em qualquer dispositivo?",
@@ -759,192 +928,275 @@
     }
 ];
 
-    // Function to load plans from JSON data
-    function loadPlans() {
-        const planGrid = document.getElementById('plan-grid');
-        planGrid.innerHTML = ''; // Clear existing content
-        
-        plansData.forEach((plan, index) => {
-            const planCard = document.createElement('div');
-            planCard.className = 'plan-card' + (index === 0 ? ' selected' : '');
-            planCard.setAttribute('data-id', plan.id);
-            planCard.setAttribute('data-months', plan.months);
-            planCard.setAttribute('data-price', plan.totalPrice);
-            planCard.setAttribute('data-monthly', plan.monthlyPrice);
-            planCard.setAttribute('data-base-price', plan.basePrice);
-            planCard.setAttribute('data-fee', plan.fee);
-            planCard.onclick = function() { selectPlan(this, plan.id); };
+        // Function to create plan card HTML
+        function createPlanCard(plan, isFirstOfAll) {
+            const selectedClass = isFirstOfAll ? ' selected' : '';
+            const popularClass = plan.isPopular ? ' popular' : '';
+            const badgeHTML = plan.tag ? `<div class="badge ${plan.tag.color !== 'default' ? plan.tag.color : ''}">${plan.tag.text}</div>` : '';
             
-            // Create badge if tag exists
-            let badgeHTML = '';
-            if (plan.tag) {
-                const colorClass = plan.tag.color !== 'default' ? ` ${plan.tag.color}` : '';
-                badgeHTML = `<div class="badge${colorClass}">${plan.tag.text}</div>`;
-            }
-            
-            // Format monthly price to show with comma as decimal separator
-            const formattedMonthlyPrice = plan.monthlyPrice.toFixed(2).replace('.', ',');
-            
-            planCard.innerHTML = `
-                ${badgeHTML}
-                <div class="plan-card-content">
-                    <h3 class="plan-title">${plan.months} ${plan.months === 1 ? 'mês' : 'meses'}</h3>
-                    <p class="plan-price">R$ ${plan.totalPrice}</p>
-                    <p class="plan-monthly">R$ ${formattedMonthlyPrice}/mês</p>
+            return `
+                <div class="plan-card${selectedClass}${popularClass}" data-id="${plan.id}" data-title="${plan.title}" data-price="${plan.totalPrice}" data-base-price="${plan.basePrice}" data-fee="${plan.fee}" onclick="selectPlan(this, ${plan.id})">
+                    ${badgeHTML}
+                    <div class="plan-card-content">
+                        <div class="plan-radio"></div>
+                        <div class="plan-info">
+                            <div class="plan-title">${plan.title}</div>
+                            <div class="plan-monthly">${plan.subtitle}</div>
+                        </div>
+                    </div>
+                    <div class="plan-price-section">
+                        <div class="plan-price">R$ ${plan.totalPrice}</div>
+                    </div>
                 </div>
             `;
-            
-            planGrid.appendChild(planCard);
-        });
-    }
+        }
 
-    // Function to load FAQ items from JSON data
-    function loadFaqItems() {
-        const faqContainer = document.getElementById('faq-container');
-        faqContainer.innerHTML = ''; // Clear existing content
-        
-        faqData.forEach((item, index) => {
-            const faqItem = document.createElement('div');
-            faqItem.className = 'faq-item';
-            faqItem.onclick = function() { toggleFaq(this); };
+        // Benefits data for each category
+        const benefitsData = {
+            ultimate: [
+                "Mais de 400 jogos no Console Xbox, no PC e em dispositivos compatíveis",
+                "Novos jogos no lançamento, incluindo jogos novos publicados pelo Xbox e de terceiros",
+                "Inclui o Clube Fortnite, EA Play, Ubisoft+ Classics",
+                "Faça streaming de jogos com tempos de espera menores, incluindo títulos selecionados que você já tem",
+                "Jogue e ganhe até 100.000 pontos do Rewards por ano na Loja com o Rewards",
+                "Benefícios para jogos como League of Legends e Call of Duty: Warzone",
+                "Multijogador no console online" 
+            ],
+            premium: [
+                "Mais de 200 jogos no Console Xbox, no PC e em dispositivos compatíveis",
+                "Novos jogos publicados no Xbox entram na biblioteca no prazo de 12 meses após o lançamento",
+                "Jogue em nuvem com tempos de espera menores, incluindo títulos selecionados que você já tem",
+                "Jogue e ganhe até 50.000 pontos do Rewards por ano na Loja com o Rewards",
+                " Benefícios para jogos como League of Legends e Call of Duty: Warzone",
+                " Multijogador no console online"
+            ],
+            essential: [
+                "Mais de 50 jogos no Console Xbox, no PC e em dispositivos compatíveis",
+                "Jogue em nuvem, incluindo títulos selecionados que você já tem",
+                "Multijogador no console online",
+                "Jogue e ganhe até 25.000 pontos do Rewards por ano na Loja com o Rewards",
+                " Benefícios para jogos como League of Legends e Call of Duty: Warzone"
+            ]
+        };
+
+        // Function to create benefits section HTML
+        function createBenefitsSection(category) {
+            const benefits = benefitsData[category] || benefitsData.ultimate;
             
-            faqItem.innerHTML = `
-                <div class="faq-question">
-                    <h3>${item.question}</h3>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
+            const benefitsHTML = benefits.map(benefit => `
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <p class="benefit-text">${benefit}</p>
                 </div>
-                <div class="faq-answer">
-                    <p>${item.answer}</p>
+            `).join('');
+            
+            return `
+                <div class="benefits-section">
+                    <h3 class="benefits-title">✨ O que está incluído:</h3>
+                    <div class="benefits-list">
+                        ${benefitsHTML}
+                    </div>
                 </div>
             `;
-            
-            faqContainer.appendChild(faqItem);
-        });
-    }
+        }
 
-    // Load plans and FAQ items when the page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        loadPlans();
-        loadFaqItems();
-        updateSelectedPlanDisplay();
-        
-        // Bottom sheet functionality
-        const buyButton = document.getElementById('buy-button');
-        const termsSheet = document.getElementById('terms-sheet');
-        const backdrop = document.getElementById('backdrop');
-        const closeSheet = document.getElementById('close-sheet');
-        const confirmButton = document.getElementById('confirm-button');
-        
-        buyButton.addEventListener('click', function() {
-            termsSheet.classList.add('active');
-            backdrop.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
-        });
-        
-        function closeBottomSheet() {
-            termsSheet.classList.remove('active');
-            backdrop.classList.remove('active');
-            document.body.style.overflow = ''; // Re-enable scrolling
+        // Function to load all categories
+        function loadAllCategories() {
+            const container = document.getElementById('categories-container');
+            const tabsContainer = document.getElementById('header-category-tabs');
+            let html = '';
+            let tabsHtml = '';
+            let isFirstPlanOfAll = true;
+            
+            categoriesData.forEach((category, categoryIndex) => {
+                const categoryPlans = plansData.filter(p => p.category === category.category);
+                const activeClass = categoryIndex === 0 ? ' active' : '';
+                
+                html += `
+                    <div class="category-section${activeClass}" data-category="${category.category}">
+                        <div class="category-header">
+                            <h2 class="section-title">${category.title}</h2>
+                            <p class="section-subtitle">Escolha seu plano e aproveite todos os benefícios</p>
+                        </div>
+                        <div class="plan-grid">
+                            ${categoryPlans.map(plan => {
+                                const card = createPlanCard(plan, isFirstPlanOfAll);
+                                if (isFirstPlanOfAll) isFirstPlanOfAll = false;
+                                return card;
+                            }).join('')}
+                        </div>
+                        ${createBenefitsSection(category.category)}
+                        <div class="category-footer">
+                            <p>Connect - Celulares e Informatica Ltda CNPJ 43.701.700/0001-16</p>
+                        </div>
+                    </div>
+                `;
+                
+                // Create category tab with shorter names for header
+                const shortNames = {
+                    "Xbox Game Pass Ultimate": "Ultimate",
+                    "Xbox Game Pass Premium": "Premium",
+                    "Xbox Game Pass Essential": "Essential"
+                };
+                const activeTabClass = categoryIndex === 0 ? ' active' : '';
+                tabsHtml += `<div class="header-category-tab${activeTabClass}" onclick="switchCategory('${category.category}')">${shortNames[category.title]}</div>`;
+            });
+            
+            container.innerHTML = html;
+            tabsContainer.innerHTML = tabsHtml;
         }
         
-        closeSheet.addEventListener('click', closeBottomSheet);
-        backdrop.addEventListener('click', closeBottomSheet);
-        
-        confirmButton.addEventListener('click', function() {
-            closeBottomSheet();
+        // Function to switch category
+        function switchCategory(categoryName) {
+            // Hide all category sections
+            document.querySelectorAll('.category-section').forEach(section => {
+                section.classList.remove('active');
+            });
             
-            // Get selected plan data
+            // Show selected category section
+            const selectedSection = document.querySelector(`.category-section[data-category="${categoryName}"]`);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+            }
+            
+            // Update tab active state in header
+            document.querySelectorAll('.header-category-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            event.target.classList.add('active');
+            
+            // Update selected plan in the bottom bar to the first plan of the new category
+            const firstPlanCard = selectedSection.querySelector('.plan-card');
+            if (firstPlanCard) {
+                // Remove selected from all
+                document.querySelectorAll('.plan-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                // Select first of new category
+                firstPlanCard.classList.add('selected');
+                updateSelectedPlanDisplay();
+            }
+        }
+
+        // Function to load FAQ items
+        function loadFaqItems() {
+            const faqContainer = document.getElementById('faq-container');
+            faqContainer.innerHTML = '';
+            
+            faqData.forEach((item, index) => {
+                const faqItem = document.createElement('div');
+                faqItem.className = 'faq-item';
+                faqItem.onclick = function() { toggleFaq(this); };
+                
+                faqItem.innerHTML = `
+                    <div class="faq-question">
+                        <h3>${item.question}</h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>${item.answer}</p>
+                    </div>
+                `;
+                
+                faqContainer.appendChild(faqItem);
+            });
+        }
+
+        // Load plans and FAQ when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAllCategories();
+            loadFaqItems();
+            
+            // Bottom sheet functionality
+            const buyButton = document.getElementById('buy-button');
+            const termsSheet = document.getElementById('terms-sheet');
+            const backdrop = document.getElementById('backdrop');
+            const closeSheet = document.getElementById('close-sheet');
+            const confirmButton = document.getElementById('confirm-button');
+            
+            buyButton.addEventListener('click', function() {
+                termsSheet.classList.add('active');
+                backdrop.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            function closeBottomSheet() {
+                termsSheet.classList.remove('active');
+                backdrop.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            closeSheet.addEventListener('click', closeBottomSheet);
+            backdrop.addEventListener('click', closeBottomSheet);
+            
+            confirmButton.addEventListener('click', function() {
+                closeBottomSheet();
+                
+                const selectedPlan = document.querySelector('.plan-card.selected');
+                if (!selectedPlan) return;
+                
+                const totalPrice = selectedPlan.getAttribute('data-price');
+                const basePrice = selectedPlan.getAttribute('data-base-price');
+                
+                const checkoutUrl = `https://connectstore.github.io/checkout?payment=${totalPrice}&product=Xbox%20Game%20Pass&price=${basePrice}`;
+                
+                window.location.href = checkoutUrl;
+            });
+        });
+
+        function selectPlan(element, planId) {
+            // Remove selected class from all plan cards
+            document.querySelectorAll('.plan-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            element.classList.add('selected');
+            updateSelectedPlanDisplay();
+        }
+        
+        function updateSelectedPlanDisplay() {
             const selectedPlan = document.querySelector('.plan-card.selected');
             if (!selectedPlan) return;
             
-            const totalPrice = selectedPlan.getAttribute('data-price');
-            const basePrice = selectedPlan.getAttribute('data-base-price');
+            const title = selectedPlan.getAttribute('data-title');
+            const price = selectedPlan.getAttribute('data-price');
             
-            // JSON com os mapeamentos
-    var productMapping = {
-        "ultimate": "Xbox Game Pass - Ultimate",
-        "core": "Xbox Game Pass - Core",
-        "pc": "Xbox Game Pass - PC"
-    };
-
-    // Valor padrão do produto
-    var product = "Xbox Game Pass - Ultimate";
-
-    // Verifica se há o atributo 'product' na URL
-    var urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('product')) {
-        var productKey = urlParams.get('product');
-
-        // Verifica no JSON se existe o mapeamento para o parâmetro
-        if (productMapping[productKey]) {
-            product = productMapping[productKey];
+            document.getElementById('selected-plan-name').textContent = title;
+            document.getElementById('selected-plan-price').textContent = `R$ ${price}`;
         }
-    }
-    
-            // Create checkout URL with parameters
-            const checkoutUrl = `https://connectstore.github.io/checkout?payment=${totalPrice}&product=${encodeURIComponent(product)}&price=${basePrice}`;
+        
+        function toggleFaq(element) {
+            element.classList.toggle('active');
+        }
+        
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
             
-            // Redirect to checkout page
-            window.location.href = checkoutUrl;
-        });
-    });
-
-    function selectPlan(element, planId) {
-        // Remove selected class from all plans
-        document.querySelectorAll('.plan-card').forEach(card => {
-            card.classList.remove('selected');
-        });
-        
-        // Add selected class to clicked plan
-        element.classList.add('selected');
-        
-        // Update the fixed payment bar
-        updateSelectedPlanDisplay();
-    }
-    
-    function updateSelectedPlanDisplay() {
-        const selectedPlan = document.querySelector('.plan-card.selected');
-        if (!selectedPlan) return;
-        
-        const months = selectedPlan.getAttribute('data-months');
-        const price = selectedPlan.getAttribute('data-price');
-        
-        document.getElementById('selected-plan-name').textContent = `${months} ${months == 1 ? 'mês' : 'meses'}`;
-        document.getElementById('selected-plan-price').textContent = `R$ ${price}`;
-    }
-    
-    function toggleFaq(element) {
-        element.classList.toggle('active');
-    }
-    
-    function switchTab(tabName) {
-        // Hide all tab contents
-        document.querySelectorAll('.tab-content').forEach(tab => {
-            tab.classList.remove('active');
-        });
-        
-        // Show selected tab content
-        document.getElementById(tabName + '-tab').classList.add('active');
-        
-        // Update tab button styles
-        document.querySelectorAll('.tab-button').forEach(button => {
-            button.classList.remove('active');
-        });
-        
-        // Highlight active tab button
-        const activeButton = document.querySelector(`.tab-button[onclick="switchTab('${tabName}')"]`);
-        activeButton.classList.add('active');
-        
-        // Show/hide payment bar based on active tab
-        const paymentBar = document.getElementById('payment-bar');
-        if (tabName === 'plano') {
-            paymentBar.style.display = 'block';
-        } else {
-            paymentBar.style.display = 'none';
+            document.getElementById(tabName + '-tab').classList.add('active');
+            
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            const activeButton = document.querySelector(`.tab-button[onclick="switchTab('${tabName}')"]`);
+            activeButton.classList.add('active');
+            
+            const paymentBar = document.getElementById('payment-bar');
+            if (tabName === 'plano') {
+                paymentBar.style.display = 'block';
+            } else {
+                paymentBar.style.display = 'none';
+            }
         }
-    }
-</script>
-</body>
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9bdd79904109cd97',t:'MTc2ODM5NzI4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
