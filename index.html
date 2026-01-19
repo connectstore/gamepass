@@ -291,6 +291,10 @@
             background-color: #10b981;
         }
         
+        .badge.black {
+            background-color: #000000;
+        }
+        
         .badge.blue {
             background-color: #0078d4;
         }
@@ -822,11 +826,11 @@
             {
                 id: 1,
                 title: "Um mês",
-                subtitle: "R$ 125,00/mês",
+                subtitle: "R$ 120,00/mês",
                 category: "ultimate",
                 basePrice: 120,
-                fee: 5,
-                totalPrice: 125,
+                fee: 0,
+                totalPrice: 120,
                 tag: {
                     text: "Mais escolhido",
                     color: "default"
@@ -836,12 +840,15 @@
             {
                 id: 2,
                 title: "Três meses",
-                subtitle: "R$ 120/mês",
+                subtitle: "R$ 108/mês",
                 category: "ultimate",
-                basePrice: 360,
-                fee: 5,
-                totalPrice: 365,
-                tag: null,
+                basePrice: 324,
+                fee: 0,
+                totalPrice: 324,
+                tag: {
+                    text: "Economize R$ 36",
+                    color: "black"
+                },
                 isPopular: false
             },
             // Xbox Premium
